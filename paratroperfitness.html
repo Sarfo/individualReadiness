@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+	  <meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<title>Workout Test</title>
+	<script type="text/javascript"  src='https://cdn.plot.ly/plotly-2.4.2.min.js'></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap4.min.js"></script>
+	<style type="text/css">
+		     table { page-break-inside:auto }
+    div   { page-break-inside:avoid; } /* This is the key */
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+	</style>
+	<script type="text/javascript">
+
+
+		//data sample
+		// example
+		// each row represent complete set of all tests of workout
+		// row1== {Text#1:{score:"",data:""},Text#2:{score:"",data:""},Text#3:{score:"",data:""},Text#4:{score:"",data:""},Text#5:{score:"",data:""}.....to 8 tests}
+		// row2== {Text#1:{score:"",data:""},Text#2:{score:"",data:""},Text#3:{score:"",data:""},Text#4:{score:"",data:""},Text#5:{score:"",data:""}.....to 8 tests}
+      
+		var dataSample=[
+					{   text1:{score:"20",date:"03/22/2021"},
+						text2:{score:"70",date:"03/31/2021"},
+						text3:{score:"65",date:"11/23/2021"},
+						text4:{score:"85",date:"12/19/2021"},
+						text5:{score:"90",date:"04/30/2021"},
+						text6:{score:"35",date:"05/12/2021"},
+						text7:{score:"80",date:"03/22/2021"},
+						text8:{score:"38",date:"01/05/2021"}
+						},
+						{text1:{score:"50",date:"03/22/2021"},
+						text2:{score:"20",date:"03/31/2021"},
+						text3:{score:"95",date:"11/23/2021"},
+						text4:{score:"85",date:"12/19/2021"},
+						text5:{score:"50",date:"04/30/2021"},
+						text6:{score:"87",date:"05/12/2021"},
+						text7:{score:"95",date:"03/22/2021"},
+						text8:{score:"62",date:"01/05/2021"}
+					},
+
+						{text1:{score:"90",date:"03/22/2021"},
+						text2:{score:"100",date:"03/31/2021"},
+						text3:{score:"100",date:"11/23/2021"},
+						text4:{score:"100",date:"12/19/2021"},
+						text5:{score:"100",date:"04/30/2021"},
+						text6:{score:"90",date:"05/12/2021"},
+						text7:{score:"90",date:"03/22/2021"},
+						text8:{score:"90",date:"01/05/2021"}
+					},
+
+
+						{text1:{score:"40",date:"03/22/2021"},
+						text2:{score:"30",date:"03/31/2021"},
+						text3:{score:"85",date:"11/23/2021"},
+						text4:{score:"45",date:"12/19/2021"},
+						text5:{score:"40",date:"04/30/2021"},
+						text6:{score:"37",date:"05/12/2021"},
+						text7:{score:"95",date:"03/22/2021"},
+						text8:{score:"62",date:"01/05/2021"}
+					},
+						{text1:{score:"40",date:"03/22/2021"},
+						text2:{score:"90",date:"03/31/2021"},
+						text3:{score:"85",date:"11/23/2021"},
+						text4:{score:"70",date:"12/19/2021"},
+						text5:{score:"70",date:"04/30/2021"},
+						text6:{score:"60",date:"05/12/2021"},
+						text7:{score:"30",date:"03/22/2021"},
+						text8:{score:"70",date:"01/05/2021"}
+					},
+
+
+						{text1:{score:"40",date:"03/22/2021"},
+						text2:{score:"0",date:"03/31/2021"},
+						text3:{score:"33",date:"11/23/2021"},
+						text4:{score:"43",date:"12/19/2021"},
+						text5:{score:"44",date:"04/30/2021"},
+						text6:{score:"90",date:"05/12/2021"},
+						text7:{score:"90",date:"03/22/2021"},
+						text8:{score:"90",date:"01/05/2021"}
+					},
+						{text1:{score:"90",date:"03/22/2021"},
+						text2:{score:"100",date:"03/31/2021"},
+						text3:{score:"93",date:"11/23/2021"},
+						text4:{score:"73",date:"12/19/2021"},
+						text5:{score:"74",date:"04/30/2021"},
+						text6:{score:"90",date:"05/12/2021"},
+						text7:{score:"100",date:"03/22/2021"},
+						text8:{score:"100",date:"01/05/2021"}
+					},
+				]
+		//calculate score to percentage becuase of movement measurement(time,reps,etc )
+		function scoreCalculator(data) {
+			// body...
+
+			//return dataResult;
+		}
+		function lineChart(tests){
+			var x1=[];
+			var y1=[];
+			tests.forEach((row,idx)=>{
+				const rowTotalScore=parseInt(row['text1']['score'])+
+								parseInt(row['text2']['score'])+
+								parseInt(row['text3']['score'])+
+								parseInt(row['text4']['score'])+
+								parseInt(row['text5']['score'])+
+								parseInt(row['text6']['score'])+
+								parseInt(row['text7']['score'])+
+								parseInt(row['text8']['score'])
+			
+				const cycleScore=(rowTotalScore/800)*100;
+		
+                 x1.push(idx+1);
+                 y1.push(cycleScore);
+
+			 });
+			 var trace1 = {
+			  x: x1,
+			  y: y1,
+			  type: 'scatter'
+			};
+
+			var trace2 = {
+			  y: [100],
+			  x: [tests.length],
+			  type: 'scatter'
+			};
+			var layout = {
+			  title: 'Normalized Performance Score (N%)',
+			  xaxis: {
+			    title: 'Cycle Total Score'
+			  },
+			  yaxis: {
+			    title: 'Score (N%)'
+			  }
+			}
+
+
+			var data = [trace1,trace2];
+
+			Plotly.newPlot('lineChart', data,layout);
+
+		}
+
+		
+		 var selectRowIdxs=[0];
+		 function selectRowCompare(tests){
+		 	    
+		 		
+					
+					// when user click table-row
+					$('#infoTable').on('click', 'tbody tr', function(event) {
+
+		 	    	
+						//get row clicked index
+						idxID=parseInt($(this).attr("id"));
+							//check when next row is selected and not the same as the first
+							//then add row to rows selected
+						if(selectRowIdxs.length== 1 && parseInt(selectRowIdxs[0]) != idxID){
+							$(this).addClass('bg-warning');
+							selectRowIdxs.push(idxID);
+							// else check if row selected is already in the selected list
+							
+						}else {	
+
+								// if exist and rows selected  remove that row
+								  let rowFound=false;
+								 selectRowIdxs.forEach((value,_idx)=>{
+								 						if(value==idxID&&selectRowIdxs.length>1){
+								 							selectRowIdxs.splice(_idx,1);
+								 							$(this).removeClass('bg-warning');
+								 							rowFound=true;
+								 						}
+								 });
+								  //if row not exist in rows selected list add to list
+
+								 if(!rowFound &&selectRowIdxs.length>1){
+
+								 	$(this).addClass('bg-warning');
+								 	
+									 selectRowIdxs.push(idxID);
+								 }
+								 	 					
+								 console.log(selectRowIdxs)
+						}
+
+						scatterPolar(tests,selectRowIdxs);
+
+				   });
+					//draw first scatter when page load for the first time
+					$('#0').addClass('bg-warning');
+					scatterPolar(tests,selectRowIdxs);
+
+					
+				 return selectRowIdxs;
+
+                        
+		 }
+		function scatterPolar(tests,randCompare){
+						  let data=[];
+	  						 
+						randCompare.forEach((value,idx)=>{
+
+						 		data.push({
+				 			 	type: 'scatterpolar',
+								 r: [tests[value]['text1']['score'], tests[value]['text2']['score'],tests[value]['text3']['score'],tests[value]['text4']['score'], 
+			 					     tests[value]['text5']['score'], tests[value]['text6']['score'],tests[value]['text7']['score'],tests[value]['text8']['score']],
+									theta: ['Test #1','Test #2','Test #3', 'Test #4', 'Test #5', ' Test #6','Test #7', 'Test #8'],
+							  			fill: 'toself',
+							  			 
+										})
+
+							 }); 
+				         
+				       var 	layout = {
+				       					polar: {	
+				       							radialaxis: {
+				    				  						visible: true,
+				      										range: [0, 100]
+				    										}
+				  								},
+				  						 title: 'Cycle Performance Comparason',
+				 						 showlegend: false
+									}
+							Plotly.newPlot("scatterPolar", data, layout);
+
+            }
+
+		function populateTable(data){
+			 
+			data.forEach((row,idx)=>{
+
+                  var _row=$("<tr class='clickableRow' id='"+idx+"' >"+
+                  				" <td class='col-xs text-center' name='text1'  data-toggle='tooltip' data-placement='top' title='"+row['text1']['date']+"'>"+row['text1']['score']+"</td>"+
+                  				" <td class='col-xs text-center' name='text2' data-toggle='tooltip' data-placement='top' title='"+row['text2']['date']+"'>"+row['text2']['score']+"</td>"+
+                  				" <td class='col-xs text-center' name='text3' data-toggle='tooltip' data-placement='top' title='"+row['text3']['date']+"'>"+row['text3']['score']+"</td>"+
+                  				" <td class='col-xs text-center' name='text4' data-toggle='tooltip' data-placement='top' title='"+row['text4']['date']+"'>"+row['text4']['score']+"</td>"+
+                  				" <td class='col-xs text-center' name='text5' data-toggle='tooltip' data-placement='top' title='"+row['text5']['date']+"'>"+row['text5']['score']+"</td>"+
+                  				" <td class='col-xs text-center' name='text6' data-toggle='tooltip' data-placement='top' title='"+row['text6']['date']+"'>"+row['text6']['score']+"</td>"+
+                  				" <td class='col-xs text-center' name='text7' data-toggle='tooltip' data-placement='top' title='"+row['text7']['date']+"'>"+row['text7']['score']+"</td>"+
+                  				" <td class='col-xs text-center' name='text8' data-toggle='tooltip' data-placement='top' title='"+row['text8']['date']+"'>"+row['text8']['score']+"</td>"+
+                  		      "</tr>");
+
+                  
+				$("tbody").append(_row);
+			});
+			$('[data-toggle="tooltip"]').tooltip(); 
+			
+		}
+        function toggleLineChart(){
+             var colName=event.attr("");
+             $("td "+colName).each((td)=>{
+             		td.css("background-color","red");
+             });
+        	
+        }
+		
+			 $().ready(()=>{
+			 	populateTable(dataSample);
+			 	$("#infoTable").DataTable();
+			 	selectRowCompare(dataSample);
+			 	lineChart(dataSample)
+			 	//toggleLineChart();
+			 })
+
+	</script>
+
+</head>
+<body>
+	<header class="container-fluid bg-dark  row">
+				<div class="col-4 text-center pt-4">
+					 <img src="img/_82ndImage.png" class="img-thumbnail mx-auto" style="width:150px; height: 150px;">
+				</div>
+				<div class="col-4 jumbotron bg-transparent">
+					<h1 class="display-5 text-white text-center">Paratroper Readiness</h1>
+					<h4 class="display-6 text-white text-center">(Fitness History)</h4>
+					<h5 class="display-6 text-white text-center">DoD ID : <span id="dodID">1234567890</span></h5>
+				</div>
+				<div class="col-4 text-center pt-4">
+					<img src="img/_82ndImage.png" class="img-thumbnail mx-auto" style="width:150px; height: 150px;">
+				</div>
+				
+	</header>
+	<section class="container-fluid">
+			<div class="row" >
+					<div class="col-md-6 mt-4">
+						
+						<div id="scatterPolar" class=""></div>
+					</div>
+					<div class="col-md-6 mt-4">
+						<h4 class="text-center"></h4>
+						<div id="lineChart" class="6"></div> 
+					</div>
+					
+					
+				     
+			</div>
+			<div class="container-fluid table-responsive">
+				   <h2 class="w-100 text-center"> Cycle List</h2>
+				  <table id="infoTable" class="table table-bordered table-hover">
+				    <thead>
+				      <tr class="bg-primary text-white">
+				        <th class="col-xs text-center" name="text1">Test #1</th>
+				        <th class="col-xs text-center" name="text2">Test #2</th>
+				        <th class="col-xs text-center" name="text3">Test #3</th>
+				        <th class="col-xs text-center" name="text4">Test #4</th>
+			       		 <th class="col-xs text-center" name="text5">Test #5</th>
+				        <th class="col-xs text-center" name="text6">Test #6</th>
+				        <th class="col-xs text-center" name="text7">Test #7</th>
+				        <th class="col-xs text-center" name="text8">Test #8</th>	
+				        </tr>			        
+				    </thead>
+				    <tbody>
+				   
+
+			
+
+				    </tbody>
+				  </table>
+
+			</div>
+	</section>
+	<footer class="container-fluid">
+		
+	</footer>
+
+</body>
+</html>
